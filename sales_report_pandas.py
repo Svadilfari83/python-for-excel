@@ -27,4 +27,9 @@ summary = pivot.resample("M").sum()
 summary.index.name = "Month"
 
 # Write summary report to Excel file
-summary.to_excel(this_dir / "sales_report_pandas.xlsx")
+
+with pd.ExcelWriter('sales_report_pandas.xlsx') as writer:  
+    summary.to_excel(writer, sheet_name="Summary")
+    pivot.to_excel(writer, sheet_name="Pivot" )
+    df.to_excel(writer, sheet_name="df" )
+
